@@ -1,0 +1,36 @@
+
+Command-Line Interface Schematic for Image to 3D Model Converter
+===============================================================
+Executable: rust_3d_converter
+
+Arguments:
+-----------
+-i <input_file>      : Specifies the path to the input image file to be converted.
+-o <output_file>     : Specifies the path for the output .gltf file.
+
+Options:
+---------
+--detail <level>     : (Optional) Specifies the level of detail to render (low|medium|high). Defaults to 'high'.
+--color <mode>       : (Optional) Sets the color mode for the model ('white'|'image'). Defaults to 'image'.
+
+Defaults:
+----------
+Resolution          : Matches the resolution of the input image.
+Detail Level        : High detail level for the model, capturing more intricate details from the image.
+Color Mode          : Image mode, where the model's color is determined by the closest ASCII color set match, considering color and brightness.
+
+Process Description:
+---------------------
+1. Color Approximation Algorithm:
+   - An algorithm will map the colors from the input image to the closest ASCII color set equivalent, considering both color and brightness.
+
+2. Depth Approximation:
+   - The program will include an algorithm to analyze the context of the image and approximate a realistic and plausible 3D shape.
+
+3. 3D Model Generation:
+   - The program will generate the 3D model based on the depth and color information, creating vertices and facets accordingly.
+
+4. Output:
+   - The final output will be a .gltf file that contains the 3D model with the applied color information.
+
+The schematic will serve as the foundation for developing the pseudo code and eventual coding of the software.
