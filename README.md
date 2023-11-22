@@ -3,9 +3,9 @@ Flappy bird homage created with early alpha version of my Codie --> Pseudo Code 
 
 Better 'en Crysis. Have fun! (3-4 hours of work, revisions, debugging etc.)
 
-Play FlabbyTRON! --> 
+<span style="color:green">Play FlabbyTRON! --></span> 
 [FlabbyTRON ~ everybody says it's better 'en Crysis](https://pgleamy.github.io/FlabbyTRON/)
-* USE the DOWN ARROW
+* INSTRUCTIONS: downarrow
 
 ![screenshot](FlabbyTRON-screenshot.png)
 
