@@ -7,7 +7,10 @@ Better 'en Crysis. Have fun! (3-4 hours of work, revisions, debugging etc.)
 + Play FlabbyTRON! -->
 ```
 [FlabbyTRON ~ everybody says it's better 'en Crysis](https://pgleamy.github.io/FlabbyTRON/)
-* INSTRUCTIONS: downarrow
+``` diff
++ INSTRUCTIONS:
+```
+downarrow
 
 ![screenshot](FlabbyTRON-screenshot.png)
 
