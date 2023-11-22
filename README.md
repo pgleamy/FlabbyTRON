@@ -6,4 +6,4 @@ Better 'en Crysis. Have fun! (3-4 hours of work, revisions, debugging etc.)
 Play FlabbyTRON! 
 [FlabbyTRON better 'en Crysis](https://pgleamy.github.io/FlabbyTRON/)
 
-[GAMEPLAY VIDEO](FlabbyTRON-gameplay.mp4)
+[GAMEPLAY VIDEO. Choose 'view raw' to download:](FlabbyTRON-gameplay.mp4)
