@@ -1,0 +1,95 @@
+
+[package]
+name = "rust_3d_converter"
+version = "0.1.0"
+edition = "2018"
+
+# Dependencies
+[dependencies]
+clap = "2.33.3"
+log = "0.4.14"
+env_logger = "0.9.0"
+image = "0.23.14"
+gltf = "0.15.3"
+
+// main.rs
+use clap::{App, Arg};
+use log::{info, error};
+use env_logger::Env;
+
+fn main() {
+    // Initialize the logger
+    env_logger::init_from_env(Env::default().default_filter_or("info"));
+
+    // Define the command line interface
+    let matches = App::new("Rust 3D Converter")
+        .version("0.1.0")
+        .author("Codie Craft")
+        .about("Converts 2D images to 3D models")
+        .arg(Arg::with_name("input")
+            .short("i")
+            .long("input")
+            .value_name("FILE")
+            .help("Sets the input file to use")
+            .required(true)
+            .takes_value(true))
+        .arg(Arg::with_name("output")
+            .short("o")
+            .long("output")
+            .value_name("FILE")
+            .help("Sets the output file path for the .gltf file")
+            .required(true)
+            .takes_value(true))
+        .arg(Arg::with_name("detail")
+            .long("detail")
+            .value_name("LEVEL")
+            .help("Sets the level of detail (low|medium|high)")
+            .takes_value(true))
+        .arg(Arg::with_name("color")
+            .long("color")
+            .value_name("MODE")
+            .help("Sets the color mode (white|image)")
+            .takes_value(true))
+        .get_matches();
+
+    // Get the command line arguments
+    let input_path = matches.value_of("input").unwrap();
+    let output_path = matches.value_of("output").unwrap();
+    let detail_level = matches.value_of("detail").unwrap_or("high");
+    let color_mode = matches.value_of("color").unwrap_or("image");
+
+    // Log the starting of the program
+    info!("Starting the Rust 3D Converter");
+    info!("Input file: {}", input_path);
+    info!("Output file: {}", output_path);
+    info!("Detail level: {}", detail_level);
+    info!("Color mode: {}", color_mode);
+
+    // Stub function calls (to be implemented)
+    if let Err(e) = process_image(input_path, output_path, detail_level, color_mode) {
+        error!("Error processing image: {}", e);
+        std::process::exit(1);
+    }
+}
+
+fn process_image(input_path: &str, output_path: &str, detail_level: &str, color_mode: &str) -> Result<(), String> {
+    // Load and validate the image
+    // TODO: Implement image loading and validation
+
+    // Perform color mapping if color mode is 'image'
+    // TODO: Implement color mapping
+
+    // Approximate depth from the image
+    // TODO: Implement depth approximation
+
+    // Generate the 3D model
+    // TODO: Implement 3D model generation
+
+    // Convert the model to glTF format and save it
+    // TODO: Implement glTF conversion and saving
+
+    // Log the successful completion
+    info!("Image processed successfully. Output saved to {}", output_path);
+
+    Ok(())
+}
