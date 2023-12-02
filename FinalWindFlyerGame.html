@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wind Flyer Game</title>
+    <style>
+        canvas {
+            display: block;
+            background: #000;
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+        }
+        #scoreBoard {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="scoreBoard">
+        <p>Score: <span id="currentScore">0</span></p>
+        <p>High Score: <span id="highScore">0</span></p>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let playerPosition = { x: canvas.width / 3, y: canvas.height / 2 };
+        let obstacles = [];
+        const minimumWindStrength = 1;
+        const maximumWindStrength = 5;
+        let windStrength = minimumWindStrength;
+        let score = 0;
+        let highScore = localStorage.getItem('highScore') ? parseInt(localStorage.getItem('highScore')) : 0;
+        let gameRunning = true;
+
+        document.getElementById('highScore').innerText = highScore;
+
+        function updateWind() {
+            windStrength = Math.random() * (maximumWindStrength - minimumWindStrength) + minimumWindStrength;
+            setTimeout(updateWind, Math.random() * 5000 + 2000);
+        }
+
+        function generateObstacle() {
+            const obstacle = {
+                x: canvas.width,
+                y: Math.random() * canvas.height,
+                width: 20,
+                height: Math.random() * 100 + 50
+            };
+            obstacles.push(obstacle);
+            setTimeout(generateObstacle, 2000 / windStrength);
+        }
+
+        function updateObstacles() {
+            obstacles = obstacles.map(obstacle => ({ ...obstacle, x: obstacle.x - windStrength }));
+            obstacles = obstacles.filter(obstacle => obstacle.x + obstacle.width > 0);
+        }
+
+        function handleInput() {
+            window.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowUp') playerPosition.y -= 10;
+                if (e.key === 'ArrowDown') playerPosition.y += 10;
+            });
+        }
+
+        function checkCollision() {
+            for (const obstacle of obstacles) {
+                if (playerPosition.x < obstacle.x + obstacle.width &&
+                    playerPosition.x > obstacle.x &&
+                    playerPosition.y < obstacle.y + obstacle.height &&
+                    playerPosition.y > obstacle.y) {
+                    gameRunning = false;
+                }
+            }
+            // Check for collision with top and bottom of the window
+            if (playerPosition.y < 0 || playerPosition.y > canvas.height) {
+                gameRunning = false;
+            }
+        }
+
+        function drawPlayer() {
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'; // Slightly darker fill color
+            ctx.strokeStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(playerPosition.x, playerPosition.y, 10, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        function drawObstacles() {
+            ctx.fillStyle = 'rgba(255, 0, 0, 0.5)'; // Slightly darker fill color
+            ctx.strokeStyle = 'red';
+            obstacles.forEach(obstacle => {
+                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+                ctx.strokeRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+            });
+        }
+
+        function updateScore() {
+            document.getElementById('currentScore').innerText = score;
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('highScore', highScore);
+                document.getElementById('highScore').innerText = highScore;
+            }
+        }
+
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawPlayer();
+            drawObstacles();
+            updateObstacles();
+            checkCollision();
+
+            if (gameRunning) {
+                score++;
+                updateScore();
+                requestAnimationFrame(gameLoop);
+            } else {
+                alert('Game Over. Score: ' + score);
+            }
+        }
+
+        updateWind();
+        generateObstacle();
+        handleInput();
+        gameLoop();
+    </script>
+</body>
+</html>
