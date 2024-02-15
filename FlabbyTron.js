@@ -12,7 +12,7 @@ var __assign = (this && this.__assign) || function () {
 // Constants
 var gravity = 0.6;
 var obstacleSpeed = 1.6;
-var birdRadius = 12;
+var birdRadius = 10;
 var obstacleInterval = 250;
 var frameCount = 0;
 var gameRunning = false;
@@ -39,7 +39,7 @@ function handleKeyDown(event) {
             gameRunning = true;
             gameLoop(); // Start the game loop
         }
-        gameState.bird.velocityY = -10; // Flap effect
+        gameState.bird.velocityY = -6; // Flap effect
         playSound('flap');
     }
 }
@@ -72,9 +72,9 @@ function updateGame() {
 function handleGameOver() {
     gameRunning = false;
     playSound('crash'); // Play crash sound immediately
-    if (gameState.score > gameState.highScoreFlabby) {
-        gameState.highScoreFlabby = gameState.score;
-        saveHighScore(gameState.highScoreFlabby);
+    if (gameState.score > gameState.highScore) {
+        gameState.highScore = gameState.score;
+        saveHighScore(gameState.highScore);
     }
     // Replace the alert with a custom method to display game over message
     displayGameOverMessage("Game over!\n\nScore: ".concat(gameState.score));
@@ -88,7 +88,7 @@ function displayGameOverMessage(message) {
         // Hide the message after a delay
         setTimeout(function () {
             gameOverDiv.style.display = 'none'; // Make the div invisible
-        }, 2000);
+        }, 4000);
     }
 }
 function renderGame() {
@@ -124,10 +124,10 @@ function updateScore() {
             gameState.score++;
             obstacle.passed = true;
             // Check if the current score is greater than the high score
-            if (gameState.score > gameState.highScoreFlabby) {
-                gameState.highScoreFlabby = gameState.score;
-                saveHighScore(gameState.highScoreFlabby); // Save the new high score immediately
-                console.log("New high score:", gameState.highScoreFlabby); // Diagnostic log
+            if (gameState.score > gameState.highScore) {
+                gameState.highScore = gameState.score;
+                saveHighScore(gameState.highScore); // Save the new high score immediately
+                console.log("New high score:", gameState.highScore); // Diagnostic log
             }
         }
     });
