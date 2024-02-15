@@ -31,7 +31,7 @@ var gameState = {
 // Functions
 function getHighScore() {
     var highScore = localStorage.getItem('highScoreFlabby');
-    return highScoreFlabby ? parseInt(highScoreFlabby) : 0;
+    return highScore ? parseInt(highScore) : 0;
 }
 function handleKeyDown(event) {
     if (event.key === "ArrowDown") {
@@ -72,9 +72,9 @@ function updateGame() {
 function handleGameOver() {
     gameRunning = false;
     playSound('crash'); // Play crash sound immediately
-    if (gameState.score > gameState.highScore) {
-        gameState.highScore = gameState.score;
-        saveHighScore(gameState.highScore);
+    if (gameState.score > gameState.highScoreFlabby) {
+        gameState.highScoreFlabby = gameState.score;
+        saveHighScore(gameState.highScoreFlabby);
     }
     // Replace the alert with a custom method to display game over message
     displayGameOverMessage("Game over!\n\nScore: ".concat(gameState.score));
@@ -124,16 +124,16 @@ function updateScore() {
             gameState.score++;
             obstacle.passed = true;
             // Check if the current score is greater than the high score
-            if (gameState.score > gameState.highScore) {
-                gameState.highScore = gameState.score;
-                saveHighScore(gameState.highScore); // Save the new high score immediately
-                console.log("New high score:", gameState.highScore); // Diagnostic log
+            if (gameState.score > gameState.highScoreFlabby) {
+                gameState.highScoreFlabby = gameState.score;
+                saveHighScore(gameState.highScoreFlabby); // Save the new high score immediately
+                console.log("New high score:", gameState.highScoreFlabby); // Diagnostic log
             }
         }
     });
 }
 function saveHighScore(newHighScore) {
-    localStorage.setItem('highScore', newHighScore.toString());
+    localStorage.setItem('highScoreFlabby', newHighScore.toString());
     console.log("Saved high score:", newHighScore); // Diagnostic log
 }
 function displayScore(currentScore, highScore) {
