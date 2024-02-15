@@ -13,7 +13,7 @@ var __assign = (this && this.__assign) || function () {
 var gravity = 0.6;
 var obstacleSpeed = 1.6;
 var birdRadius = 10;
-var obstacleInterval = 250;
+var obstacleInterval = 300;
 var frameCount = 0;
 var gameRunning = false;
 // Game setup
@@ -39,7 +39,7 @@ function handleKeyDown(event) {
             gameRunning = true;
             gameLoop(); // Start the game loop
         }
-        gameState.bird.velocityY = -6; // Flap effect
+        gameState.bird.velocityY = -4; // Flap effect
         playSound('flap');
     }
 }
@@ -157,14 +157,14 @@ function resetGame() {
     gameRunning = false;
 }
 function generateObstacle() {
-    var minHeight = 20; // Minimum height of the obstacle
+    var minHeight = 35; // Minimum height of the obstacle
     var maxHeight = canvas.height - 200; // Maximum height of the obstacle
     var obstacleHeight = Math.floor(Math.random() * (maxHeight - minHeight + 1) + minHeight);
     return {
         x: canvas.width,
         width: 70,
         height: obstacleHeight,
-        gap: 310,
+        gap: 320,
         passed: false
     };
 }
@@ -178,8 +178,8 @@ function renderBird(bird) {
     var centerX = bird.x; // Center of the bird
     var centerY = bird.y;
     // Increment rotation angles for a slow rotation effect
-    angleX += 0.006; // Increment X-axis rotation
-    angleY += 0.006; // Increment Y-axis rotation
+    angleX += 0.01; // Increment X-axis rotation
+    angleY += 0.01; // Increment Y-axis rotation
     // Function to rotate a point in 3D
     function rotatePoint(point) {
         var cosX = Math.cos(angleX);
@@ -196,7 +196,7 @@ function renderBird(bird) {
     }
     // Function to project a 3D point onto a 2D plane
     function projectPoint(point) {
-        var distance = 1200; // Distance from the viewer to the projection plane
+        var distance = 800; // Distance from the viewer to the projection plane
         return {
             x: point.x * distance / (point.z + distance) + centerX,
             y: point.y * distance / (point.z + distance) + centerY,
@@ -223,7 +223,7 @@ function renderBird(bird) {
     });
     // Draw sphere mesh
     ctx.strokeStyle = 'lime';
-    ctx.lineWidth = 0.4;
+    ctx.lineWidth = 0.3;
     for (var i = 0; i < segments; i++) {
         for (var j = 0; j < segments; j++) {
             var point1 = projectedPoints[i * (segments + 1) + j];
@@ -243,7 +243,7 @@ function renderBird(bird) {
 function renderObstacle(obstacle) {
     if (!ctx)
         return;
-    var segments = 15; // Number of segments for the pillar mesh
+    var segments = 40; // Number of segments for the pillar mesh
     var depth = obstacle.width; // Assuming depth of the pillar is the same as its width
     ctx.strokeStyle = 'red';
     ctx.lineWidth = 2;
