@@ -164,7 +164,7 @@ function generateObstacle() {
         x: canvas.width,
         width: 70,
         height: obstacleHeight,
-        gap: 270,
+        gap: 310,
         passed: false
     };
 }
@@ -174,12 +174,12 @@ function renderBird(bird) {
     if (!ctx)
         return;
     var radius = birdRadius; // Radius of the bird/sphere
-    var segments = 8; // Number of segments for the sphere
+    var segments = 16; // Number of segments for the sphere
     var centerX = bird.x; // Center of the bird
     var centerY = bird.y;
     // Increment rotation angles for a slow rotation effect
-    angleX += 0.003; // Increment X-axis rotation
-    angleY += 0.003; // Increment Y-axis rotation
+    angleX += 0.006; // Increment X-axis rotation
+    angleY += 0.006; // Increment Y-axis rotation
     // Function to rotate a point in 3D
     function rotatePoint(point) {
         var cosX = Math.cos(angleX);
@@ -196,7 +196,7 @@ function renderBird(bird) {
     }
     // Function to project a 3D point onto a 2D plane
     function projectPoint(point) {
-        var distance = 1000; // Distance from the viewer to the projection plane
+        var distance = 1200; // Distance from the viewer to the projection plane
         return {
             x: point.x * distance / (point.z + distance) + centerX,
             y: point.y * distance / (point.z + distance) + centerY,
