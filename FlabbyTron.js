@@ -10,10 +10,10 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 // Constants
-var gravity = 0.7;
-var obstacleSpeed = 1.8;
-var birdRadius = 14;
-var obstacleInterval = 200;
+var gravity = 0.6;
+var obstacleSpeed = 1.6;
+var birdRadius = 12;
+var obstacleInterval = 250;
 var frameCount = 0;
 var gameRunning = false;
 // Game setup
@@ -30,8 +30,8 @@ var gameState = {
 };
 // Functions
 function getHighScore() {
-    var highScore = localStorage.getItem('highScore');
-    return highScore ? parseInt(highScore) : 0;
+    var highScore = localStorage.getItem('highScoreFlabby');
+    return highScoreFlabby ? parseInt(highScoreFlabby) : 0;
 }
 function handleKeyDown(event) {
     if (event.key === "ArrowDown") {
